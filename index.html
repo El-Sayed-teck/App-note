@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My note app</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script2.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Quick Notes</h1>
+    </header>
+    <main class="main-container">
+      <button class="add-note-form">+ Add Note</button>
+      <h5 class="message">Click the button to Add a Note</h5>
+      <div class="notes-container">
+
+        <!-- <div class="note-box">
+          <h3 class="note-title-added">title</h3>
+          <textarea class="note-content-added"> some notes</textarea>
+        </div>
+
+        <div class="note-box">
+          <h3 class="note-title-added">title</h3>
+          <textarea class="note-content-added"> some notes</textarea>
+        </div>
+
+        <div class="note-box">
+          <h3 class="note-title-added">title</h3>
+          <textarea class="note-content-added"> some notes</textarea>
+        </div> -->
+
+      </div>  
+    </main>
+    <footer class="copyright">
+      <p>	&#169; 2026, All rights belong to Esraà El Sayed</p>
+    </footer> 
+
+        <dialog class="dialog-container" id="dialog-container">
+          <div class="note-form-container">
+            <div class="control-btns">
+              <button class="close-dialog">Close</button>
+            </div>
+            <div class="note-form">
+              <label for="noteTitle" class="title-note">Title</label>
+              <input type="text" class="note-title" id="noteTitle" placeholder="Enter title..." required>
+            </div>
+
+            <div class="note-form">
+              <label for="noteContent" class="title-note">Content</label>
+              <textarea class="note-Content" id="noteContent" placeholder="Enter content..." required></textarea>
+            </div>
+            <div class="btns">
+              <button type="submit" class="save-btn">Save</button>
+            </div>
+          </div>
+        </dialog>
+        
+  </body>
+
+</html>
