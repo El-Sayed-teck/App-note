@@ -12,14 +12,15 @@ const fallMessage = document.querySelector('.message');
 
 let editingNoteId = null;
 let notesArray = getNoteLocaly();
-console.log(notesArray);
 renderNotes()
 
+// a function to change the UI if there is no note
 function appState(){
   fallMessage.style.display = noteContainer.children.length === 0 ? 'block' : 'none';
 }
 appState();
 
+// function to show the form box, to add a new note
 function showDialog(){
   dialog.showModal();
   noteTitle.focus();
@@ -41,9 +42,8 @@ const testArray = getNoteLocaly()
 console.log(testArray)
 
 function generateId(){
-  //const newId = Math.floor(Math.random() * 1000).toString()
   return Math.floor(Math.random() * 1000).toString();
-  //return Date.now().toString()
+ 
 }
 
 //function render notes for the dom
@@ -52,7 +52,7 @@ function renderNotes(){
   notesArray.filter(note => note !== null).forEach(note => createNoteElement(note));
 }
 
-// function to put the 
+// function to put the notes in the dom
 function saveNote(){
   appState()
   if(!noteTitle.value || !noteContent.value) return;
@@ -86,15 +86,11 @@ function saveNote(){
     noteContent: noteContent.value.trim(),
   }
   unshiftArray(userNoteObj);
-  //createNoteElement(userNoteObj)
   
  }
   storeNoteLocaly(notesArray)
-
   renderNotes()
-
   closeDialog();
-  console.log(notesArray)
   appState()
 }
 
@@ -121,17 +117,11 @@ function createNoteElement(obj){
     div.remove();
     console.log('delete pressed')
     notesArray = notesArray.filter(note => note.id !== obj.id)
-    console.log(notesArray)
-
     storeNoteLocaly(notesArray);
-    console.log(notesArray)
+  
     appState();
     }
 
-    // else{
-    //   storeNoteLocaly(notesArray);
-    //   console.log(notesArray)
-    // }
   
   })
 
@@ -140,12 +130,10 @@ function createNoteElement(obj){
     const noteToEdit = notesArray.find(note => note.id === obj.id)
     console.log(noteToEdit);
     editingNoteId = noteToEdit.id;
-    // read it from right to left 
-    noteTitle.value = obj.noteTitle.trim(); /*“Take the note’s title from the object (obj.noteTitle), and put it into the title input field (noteTitle.value).” */
-    /*Put the note’s title into the form field. */
+  
+    noteTitle.value = obj.noteTitle.trim(); 
     
-    noteContent.value = obj.noteContent.trim(); /*"Take the note’s content from the object (obj.noteContent),and put it into the content textarea (noteContent.value)." */
-    /*Put the note’s content into the form field. */
+    noteContent.value = obj.noteContent.trim(); 
 
     showDialog();
       
@@ -157,7 +145,7 @@ function createNoteElement(obj){
 
 function unshiftArray(NoteObj){
   notesArray.unshift(NoteObj)
-  //console.log(notesArray)
+
  return notesArray
 }
 
@@ -175,3 +163,4 @@ saveNoteBtn.addEventListener('click', () => {
 closeBtn.addEventListener("click", closeDialog);
 
 })
+
