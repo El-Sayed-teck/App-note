@@ -14,13 +14,11 @@ let editingNoteId = null;
 let notesArray = getNoteLocaly();
 renderNotes()
 
-// a function to change the UI if there is no note
 function appState(){
   fallMessage.style.display = noteContainer.children.length === 0 ? 'block' : 'none';
 }
 appState();
 
-// function to show the form box, to add a new note
 function showDialog(){
   dialog.showModal();
   noteTitle.focus();
@@ -38,12 +36,11 @@ function getNoteLocaly(){
   const notesArray = JSON.parse(localStorage.getItem('usernotes')) || [];
   return notesArray;
 }
-const testArray = getNoteLocaly()
-console.log(testArray)
 
 function generateId(){
+
   return Math.floor(Math.random() * 1000).toString();
- 
+
 }
 
 //function render notes for the dom
@@ -71,7 +68,7 @@ function saveNote(){
     
   if(editingNoteId){
     const editNoteIndex = notesArray.findIndex(note => note.id === editingNoteId)
-    notesArray[editNoteIndex].timeDay = `Update: ${dateHoure()}`
+    notesArray[editNoteIndex].updateTime = dateHoure();
     notesArray[editNoteIndex].noteTitle = noteTitle.value.trim();
     notesArray[editNoteIndex].noteContent = noteContent.value.trim();
 
@@ -81,15 +78,19 @@ function saveNote(){
   const userNoteObj = 
     {
     id: generateId(),
-    timeDay: dateHoure(),
+    createdTime: dateHoure(),
+    updateTime:'',
     noteTitle: noteTitle.value.trim(),
     noteContent: noteContent.value.trim(),
   }
   unshiftArray(userNoteObj);
+
   
  }
   storeNoteLocaly(notesArray)
+
   renderNotes()
+
   closeDialog();
   appState()
 }
@@ -100,7 +101,8 @@ function createNoteElement(obj){
   const div = document.createElement('div')
   div.classList.add('note-box');
   div.innerHTML = `
-    <p class="date-houre">${obj.timeDay}</p> 
+    <p class="updated-time">Updated: ${obj.updateTime}</p>
+    <p class="date-houre">Created: ${obj.createdTime}</p> 
     <h3 class="note-title-added">${obj.noteTitle}</h3>
     <textarea class="note-content-added" readonly>${obj.noteContent}</textarea>
     <div class="btn-container">
@@ -110,15 +112,16 @@ function createNoteElement(obj){
   `;
   noteContainer.appendChild(div)
 
+  div.querySelector('.updated-time').style.display= !obj.updateTime ? 'none' : 'block';
+
   const deleteBtn = div.querySelector('.delete-btn')
   deleteBtn.addEventListener('click', ()=>{
     if (confirm("Vuoi continuare?")){
     
     div.remove();
-    console.log('delete pressed')
     notesArray = notesArray.filter(note => note.id !== obj.id)
+
     storeNoteLocaly(notesArray);
-  
     appState();
     }
 
@@ -130,11 +133,8 @@ function createNoteElement(obj){
     const noteToEdit = notesArray.find(note => note.id === obj.id)
     console.log(noteToEdit);
     editingNoteId = noteToEdit.id;
-  
-    noteTitle.value = obj.noteTitle.trim(); 
-    
-    noteContent.value = obj.noteContent.trim(); 
-
+    noteTitle.value = obj.noteTitle.trim();    
+    noteContent.value = obj.noteContent.trim();
     showDialog();
       
     
@@ -145,7 +145,6 @@ function createNoteElement(obj){
 
 function unshiftArray(NoteObj){
   notesArray.unshift(NoteObj)
-
  return notesArray
 }
 
@@ -163,4 +162,3 @@ saveNoteBtn.addEventListener('click', () => {
 closeBtn.addEventListener("click", closeDialog);
 
 })
-
