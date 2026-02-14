@@ -161,10 +161,17 @@ h1{
   color: rgb(0, 0, 0);
 }
 
-.date-houre{
+.date-houre, .updated-time{
   font-size: 0.8rem;
   font-weight: bold;
-  color: rgb(255, 236, 236)
+  color: rgb(255, 236, 236);
+}
+
+.updated-time{
+  color:  rgb(118, 82, 82);
+  background-color: rgba(255, 236, 236, 0.603);
+  padding: 3px;
+  border-radius: 5px;
 }
 
 .btn-container{
